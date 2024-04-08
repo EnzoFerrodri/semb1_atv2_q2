@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
   uint32_t *pGPIOC_PUPDR  = (uint32_t *)STM32_GPIOC_PUPDR;
   uint32_t *pGPIOA_PUPDR  = (uint32_t *)STM32_GPIOA_PUPDR;
   uint32_t *pGPIOC_BSRR   = (uint32_t *)STM32_GPIOC_BSRR;
-  uint32_t *pGPIOC_BSRR   = (uint32_t *)STM32_GPIOA_BSRR;
+  uint32_t *pGPIOA_BSRR   = (uint32_t *)STM32_GPIOA_BSRR;
 
   /* Habilita clock GPIOC e gpioA*/
 
@@ -156,15 +156,17 @@ int main(int argc, char *argv[])
 
    while(1) {
         // Verifica se o botao foi pressionado (nvel logico baixo)
-        if (not(STM32_GPIOA_IDR & (1 << 0))) {
+        if (!(STM32_GPIOA_IDR & (1 << 0))) {
             // troca led
-            led_status = !led_status;
+            
                 /* Alterna o estado do LED */
                 if (led_status) {
                     *pGPIOC_BSRR = GPIO_BSRR_RESET(13);
                 } else {
                     *pGPIOC_BSRR = GPIO_BSRR_SET(13);
                 }
+                
+            led_status = !led_status;
         } 
     }
 
