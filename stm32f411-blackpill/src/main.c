@@ -165,9 +165,11 @@ int main(int argc, char *argv[])
                 } else {
                     *pGPIOC_BSRR = GPIO_BSRR_SET(13);
                 }
-                
+
             led_status = !led_status;
+            for (i = 0; i < LED_DELAY; i++);
         } 
+        
     }
 
     /* Nunca deveria chegar aqui */
